@@ -1,0 +1,7 @@
+/emacs_home/.ssh
+/emacs_home/.emacs.d
+/emacs_home/.credentials
+/emacs_home/*.*~
+/emacs_home/*.history
+
+*.*~

@@ -1,0 +1,6 @@
+
+
+* Start Elevated CMD
+** powershell Command "Start-Process cmd -Verb RunAs"
+** shortcut - powershell "start cmd -v runAs"  
+** set encoding - C-x RET f

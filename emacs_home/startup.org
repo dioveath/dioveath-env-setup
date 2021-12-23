@@ -1,0 +1,71 @@
+#-title: StartUp Org Not Starting#
+-author: Saroj Rai 
+#-*- mode: org -*-
+#+TITLE: Startup Orgs
+#+STARTUP: overview
+
+#+BEGIN_SRC diff
+- CHECK YOUR MAILS, DAILY TODOS, CALENDAR, ETC.
+#+END_SRC
+
+* 1 PROJECT PER MONTH
+** November Project - Chaircha Tech Blog/News
+
+* Welcome to Overview 
+** Go Here [[https://brilliant.org	][To be Brilliant]]
+   
+   
+* PROJECTS WORKING
+** DONE Project Organizer Software for Charicha
+** DONE freestockvideos8
+** DONE Charicha Institute Comming Soon Page
+** ABANDONED Charicha Gaming Cafe App - To Get Timed Play and seamless opening of any pc.
+** IN-PROGRESS Charicha Monthly League - Season 3 (Web Registration with eSewa|Khalti Integration) (Upgraded to Charicha Gaming)
+** DONE Fixtures Creator for Fifa League Season 3 + Table 
+** TODO PUBG Mobile Tournament Management and Table Creator.
+** TODO Build Analytic Geometry App to learn and can Publish to Playstore
+** TODO Charicha Institute App v2.0
+** TODO Build Data Structure, Algorithms App to learn and can Publish to Playstore   
+** TODO Polish and Release Battle Tank Classic 2018, Include more levels, Clean up UI & Controls, Multiplayer??    
+** TODO Journal to Ledger, Balance Sheet, etc. - Mobile App | Web App | MICRO-SERVICES?? for all Charicha Branches
+
+** TODO Sudoku Mania (Polish and Publish) 
+** TODO City Runner Game
+** TODO C++ SDL Heli-game (Polis and release to playstore if possible) (focus on Map Editor especially.)
+
+** TODO Project Organizer Software for Charicha v2.0 Refactoring and Improving
+** TODO Charicha Gaming App - Integrated with Virtual Currency
+** TODO Charicha Store - Charicha Gaming Currency ???
+** IN-PROGRESS Charicha Tech Blog - 
+** TODO Offline Chat System for Internal Charicha
+** TODO Create Riflix v2.0 Web and Mobile App, Integrating better streaming movie, better front-end, better functionality like subtitles, admin dashsboard, etc. (IMDB API)
+** TODO Charicha Tech Review Site, YT Channel, etc
+** TODO NFT Token Based Game / NFT Learning App First if possible.
+** TODO AI Based Game / AI Learning App First
+** TODO Charicha Sangit Streaming -    
+* SOME FUN PROJECTS
+** TODO Build a Curvaceous HomePage for Charicha | Watch Fireship Video
+   
+* FOR IMPROVING
+** Study Math For 2 - 3 Months, include 3Blue1Brown, Algebra, Calculas, Number Theory, Combinatorics, Game Theory, etc..
+** Study Basic Economics, Accounting   
+** CodeWars Do 1 Problem Daily, 1 at 2 Day or something
+** Try out Google KickStart
+** Try out Other platforms too | Codeforces | ??
+** Learn Blender | Basic Low Boly Characters, Environments
+   
+* FINANCE
+** DONE Create DMAT Account | Need Citizenship Photocopy and 2 passport size photo | DPID | BOID | CRN | Login Details of MeroShare
+** DONE Create MeroShare Accout | Form fill up at same bank | Fee - Rs. 50
+** DONE Get CRN Number from the same bank.
+** TODO Watch Guruba Accounting videos about Journal, Ledger, Balance Sheet, etc
+
+* FREELANCING
+** TODO Pass the Upwork test
+** TODO Get to accept on freelance work
+** TODO I can do small game development works...
+** TODO Learn Blender | Low Poly | 3D to 2D
+
+
+* Quick Fix it Felix
+** Improve LAN Speed for faster windowos file sharing,

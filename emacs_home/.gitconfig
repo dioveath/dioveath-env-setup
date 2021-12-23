@@ -1,0 +1,7 @@
+[user]
+	name = Saroj Rai
+	email = raisaroj360@gmail.com
+[core]
+	editor = 'C:\\Emacs\\x86_64\\bin\\emacs' -nw -q
+[credential]
+	helper = manager

@@ -1,0 +1,33 @@
+
+FINDSTR
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Errorlevel
+FINDSTR will set %ERRORLEVEL% as follows:
+
+0 (False) a match is found in at least one line of at least one file.
+1 (True) if a match is not found in any line of any file, (or if the file is not found at all).
+2 Wrong syntax
+An invalid switch will only print an error message in error stream.
+
+Echo 12G6 |FindStr /R "[0-9]"
+If %ERRORLEVEL% EQU 0 echo The string contains one or more numeric characters
+
+Echo 12G6 |FindStr /R "[^0-9]"
+If %ERRORLEVEL% EQU 0 echo The string contains one or more non numeric characters
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+set var=this-is-a-test
+ECHO I would like to convert the value of this variable to "this%_%is%_%a%_%test"
+
+
+Setlocal EnableDelayedExpansion
+set _name=s-t-r-i-n-g
+set _name=!_name:-=%%_%%!
+echo %_name%
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
