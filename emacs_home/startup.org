@@ -9,7 +9,7 @@
 #+END_SRC
 
 * 1 PROJECT PER MONTH
-** November Project - Chaircha Tech Blog/News
+** November Project - Charicha Tech Blog/News
 
 * Welcome to Overview 
 ** Go Here [[https://brilliant.org	][To be Brilliant]]
@@ -20,7 +20,7 @@
 ** DONE freestockvideos8
 ** DONE Charicha Institute Comming Soon Page
 ** ABANDONED Charicha Gaming Cafe App - To Get Timed Play and seamless opening of any pc.
-** IN-PROGRESS Charicha Monthly League - Season 3 (Web Registration with eSewa|Khalti Integration) (Upgraded to Charicha Gaming)
+** DELEGATED Charicha Monthly League - Season 3 (Web Registration with eSewa|Khalti Integration) (Upgraded to Charicha Gaming)
 ** DONE Fixtures Creator for Fifa League Season 3 + Table 
 ** TODO PUBG Mobile Tournament Management and Table Creator.
 ** TODO Build Analytic Geometry App to learn and can Publish to Playstore
