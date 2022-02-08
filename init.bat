@@ -24,17 +24,18 @@ goto :END
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
 :NOARG
-setx CHARICHA_HOME "C:/Charicha Env/config"
+set charicha_home="c:/Charicha Env/config"
+setx CHARICHA_HOME charicha_home
 
 subst | findstr /C:"X:\\: =>" 1> nul
 if errorlevel 1 (
-   subst X: "%CHARICHA_HOME%"
+   subst X: %CHARICHA_HOME%
 )
-   
 X:
+
+call path_cmd addPath charicha_home
+
 
 rem emacs home
 setx HOME "C:\Charicha Env\config\emacs_home"
@@ -45,8 +46,8 @@ rem call path_cmd addPath android_platform_tools
 rem set charicha_database="C:/xampp/mysql/bin"
 rem call path_cmd addPath charicha_database
 
-rem set flutter_path="C:/src/flutter/bin"
-rem call path_cmd addPath flutter_path
+set flutter_path="C:/dev/flutter/bin"
+call path_cmd addPath flutter_path
 
 rem set node_js_path="C:\Program Files\nodejs"
 rem call path_cmd addPath node_js_path
@@ -62,7 +63,7 @@ rem call path_cmd addPath ANDROID_PLATFORM_TOOLS
 
 rem set COMPETETIVE_STUFFS="C:/competitive_stuffs"
 rem mkdir %COMPETETIVE_STUFFS%
-rem subst Y: %COMPETETIVE_STUFFS%
+prem subst Y: %COMPETETIVE_STUFFS%
 rem call path_cmd addPath COMPETETIVE_STUFFS
 
 rem set mingw_bin="C:/MinGW/bin"
@@ -74,13 +75,52 @@ rem call path_cmd addPath CSHARP
 goto :END
 
 
+:NEW
+rem setlocal
+::initializes for a new project
+echo.
+echo ---------------------------------------------------------------------------
+echo SETTING UP YOUR NEW PROJECT
+echo.
+echo Fill up the details of your new project..
+echo.
+set /p project_name="New Project Name:"
+setx PROJECT_NAME "%project_name%"
+
+
+Setlocal EnableDelayedExpansion
+set /p project_path="Project Path:"
+set Project_Path=!project_path:/=\!
+setx PROJECT_PATH "%project_path%"
+Endlocal
+
+
+set /p project_details="Project Summary:"
+setx PROJECT_DESC "%project_details%"
+
+echo.
+echo.
+echo Restart your Charicha Dev CMD
+echo.
+echo.
+
+pause
+exit
+rem NOTE: In Future PROJECT_DESC should be kind of readme file. So, developer can
+rem change the description/summary on the go
+
+rem endlocal
+goto :END
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 :HELP
 setlocal
 
 echo.
 echo.
-echo                  HELP WILL BE ARRIVING SOON
+echo              HELP WILL BE ARRIVING SOON
 echo.
 echo ------Copyright Charicha All Rights Reserved------
 echo.
@@ -128,9 +168,9 @@ if errorlevel 1 (
 
 echo.
 echo.
-echo              Copyrights CharichaSoftwares All Rights Reserved
 echo _________________________________________________________________________
 echo.
+echo              Copyrights CharichaSoftwares All Rights Reserved
 echo _________________________________________________________________________
 echo.
 echo.

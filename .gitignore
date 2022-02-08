@@ -3,5 +3,7 @@
 /emacs_home/.credentials
 /emacs_home/*.*~
 /emacs_home/*.history
+/emacs_home/#.*
+/emacs_home/#*.*
 
 *.*~

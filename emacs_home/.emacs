@@ -56,14 +56,17 @@
 
 
 
+
 (require 'color)
 (defun chc-load-theme()
-  (set-frame-font "Inconsolata")
-  (set-face-attribute 'default nil :height 105 :weight 'normal)
-  (load-theme 'doom-outrun-electric t)
   ;; (set-background-color "black")
   ;; (set-face-background 'mode-line "dark slate gray")
   ;; (set-face-foreground 'mode-line "white")
+  (load-theme 'doom-outrun-electric t)
+  (set-frame-font "Fira Code")
+  (set-face-attribute 'default nil :height 95 :weight 'normal)      
+
+
   (global-hl-line-mode t)
   (set-face-background hl-line-face (color-lighten-name
 				     (face-attribute 'default :background) 10))
@@ -396,8 +399,8 @@
   ("C-c l" . lsp-command-map)
   :custom
   (setq lsp-keymap-prefix "C-c l")
-  :hook ((rjsx-mode . lsp)
-	 (csharp-mode . lsp))
+  :hook ((csharp-mode . lsp)
+	 (rjsx-mode . lsp))
 
   (lsp-mode . lsp-enable-which-key-integration)
   :commands (lsp lsp-deferred))
@@ -417,18 +420,18 @@
   :config (treemacs-resize-icons 20))
 
 
-;; (use-package lsp-dart
-;;   :ensure t
-;;   :hook (dart-mode . lsp))
+(use-package lsp-dart
+  :ensure t
+  :hook (dart-mode . lsp))
 
-;; (use-package hover
-;;   :ensure t)
+(use-package hover
+  :ensure t)
 
-;; (use-package flutter
-;;   :ensure t
-;;   :after dart-mode
-;;   :bind (:map dart-mode-map
-;; 	      ("C-M-x" . #'flutter-run-or-hot-reload)))
+(use-package flutter
+  :ensure t
+  :after dart-mode
+  :bind (:map dart-mode-map
+	      ("C-M-x" . #'flutter-run-or-hot-reload)))
 
 (use-package yasnippet
   :ensure t
@@ -439,13 +442,13 @@
 
 
 ;; csharp mode ??
-(use-package csharp-mode
-  :ensure t
-  :init
-  (defun my/csharp-mode-hook ()
-    (lsp))
-  (add-hook 'csharp-mode-hook #'my/csharp-mode-hook)
-  :mode ("\\.cs\\'"))
+;; (use-package csharp-mode
+;;   :ensure t
+;;   :init
+;;   (defun my/csharp-mode-hook ()
+;;     (lsp))
+;;   (add-hook 'csharp-mode-hook #'my/csharp-mode-hook)
+;;   :mode ("\\.cs\\'"))
 
 
 
@@ -547,8 +550,8 @@
 ;; (require 'lsp-java)
 ;; (add-hook 'java-mode-hook #'lsp)
 
-(use-package lsp-java
-  :ensure t
-  :config (add-hook 'java-mode-hook 'lsp))
+;; (use-package lsp-java
+;;   :ensure t
+;;   :config (add-hook 'java-mode-hook 'lsp))
 
-(setq lsp-java-jdt-download-url  "https://download.eclipse.org/jdtls/milestones/0.57.0/jdt-language-server-0.57.0-202006172108.tar.gz")
+;; (setq lsp-java-jdt-download-url  "https://download.eclipse.org/jdtls/milestones/0.57.0/jdt-language-server-0.57.0-202006172108.tar.gz")

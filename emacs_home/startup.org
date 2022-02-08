@@ -8,8 +8,10 @@
 - CHECK YOUR MAILS, DAILY TODOS, CALENDAR, ETC.
 #+END_SRC
 
-* 1 PROJECT PER MONTH
-** November Project - Charicha Tech Blog/News
+* PROJECTS FEBRAURY
+** Sudoku Mania (Polish and Publish) 
+** Febraury Project - Build Data Structure, Algorithms App to learn and can Publish to Playstore
+** Falling numbers Unity (skin it)
 
 * Welcome to Overview 
 ** Go Here [[https://brilliant.org	][To be Brilliant]]
@@ -22,25 +24,28 @@
 ** ABANDONED Charicha Gaming Cafe App - To Get Timed Play and seamless opening of any pc.
 ** DELEGATED Charicha Monthly League - Season 3 (Web Registration with eSewa|Khalti Integration) (Upgraded to Charicha Gaming)
 ** DONE Fixtures Creator for Fifa League Season 3 + Table 
-** TODO PUBG Mobile Tournament Management and Table Creator.
+** ABONDONED PUBG Mobile Tournament Management and Table Creator.
+** WAITING Charicha Institute App v2.0
+
+** TODO Build Data Structure, Algorithms App to learn and can Publish to Playstore      
 ** TODO Build Analytic Geometry App to learn and can Publish to Playstore
-** TODO Charicha Institute App v2.0
-** TODO Build Data Structure, Algorithms App to learn and can Publish to Playstore   
+** TODO Build SanoBazzar Mart Static Website
 ** TODO Polish and Release Battle Tank Classic 2018, Include more levels, Clean up UI & Controls, Multiplayer??    
 ** TODO Journal to Ledger, Balance Sheet, etc. - Mobile App | Web App | MICRO-SERVICES?? for all Charicha Branches
 
-** TODO Sudoku Mania (Polish and Publish) 
-** TODO City Runner Game
-** TODO C++ SDL Heli-game (Polis and release to playstore if possible) (focus on Map Editor especially.)
+** IN-PROGRESS Sudoku Mania (Polish and Publish) 
+** TODO City Runner Game (Skin it from free project)
+** TODO C++ SDL Heli-game (Polish and release to playstore if possible) (focus on Map Editor especially.)
 
 ** TODO Project Organizer Software for Charicha v2.0 Refactoring and Improving
+** TODO dioveath Wordpress Posts API (Simple -- Can only list posts & show post)      
 ** TODO Charicha Gaming App - Integrated with Virtual Currency
 ** TODO Charicha Store - Charicha Gaming Currency ???
 ** IN-PROGRESS Charicha Tech Blog - 
-** TODO Offline Chat System for Internal Charicha
+** TODO Offline Chat System for Internal Charicha within LAN
 ** TODO Create Riflix v2.0 Web and Mobile App, Integrating better streaming movie, better front-end, better functionality like subtitles, admin dashsboard, etc. (IMDB API)
 ** TODO Charicha Tech Review Site, YT Channel, etc
-** TODO NFT Token Based Game / NFT Learning App First if possible.
+** TODO NFT Token Based Game / NFT Learning App First if possible. Try integrating NFT in Charicha Gaming
 ** TODO AI Based Game / AI Learning App First
 ** TODO Charicha Sangit Streaming -    
 * SOME FUN PROJECTS
