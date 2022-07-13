@@ -1,7 +1,16 @@
 [user]
-	name = Saroj Rai
 	email = raisaroj360@gmail.com
+	name = Saroj Rai
 [core]
-	editor = 'C:\\Emacs\\x86_64\\bin\\emacs' -nw -q
+	editor = 'C:\\Program Files\\Emacs\\x86_64\\bin\\emacs.exe' -nw -q
 [credential]
 	helper = manager
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential "https://git-rba.hackerrank.com"]
+	provider = generic
+[credential "https://git.heroku.com"]
+	provider = generic

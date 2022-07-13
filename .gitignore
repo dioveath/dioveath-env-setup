@@ -7,3 +7,10 @@
 /emacs_home/#*.*
 
 *.*~
+
+.bash_history
+_netrc
+_viminfo
+rent.org
+topup.org
+Local

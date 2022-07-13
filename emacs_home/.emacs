@@ -8,6 +8,23 @@
 
 (message "Message from loaded file .emacs")
 
+(setq package-enable-at-startup nil)
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
@@ -53,31 +70,30 @@
 ;; (treemacs-load-theme "Default")
 
 
-
-
-
-
 (require 'color)
 (defun chc-load-theme()
+  (set-face-attribute 'default nil :height 100 :weight 'normal)    
   ;; (set-background-color "black")
   ;; (set-face-background 'mode-line "dark slate gray")
   ;; (set-face-foreground 'mode-line "white")
-  (load-theme 'doom-outrun-electric t)
-  (set-frame-font "Fira Code")
-  (set-face-attribute 'default nil :height 95 :weight 'normal)      
-
-
+  ;; (load-theme 'doom-solarized-dark-high-contrast t)
+  
+  (set-face-attribute 'default nil :height 95 :weight 'normal)
+  (set-face-attribute 'default nil :height 105 :weight 'normal)
+  (set-frame-font "InputMono Thin")
   (global-hl-line-mode t)
-  (set-face-background hl-line-face (color-lighten-name
-				     (face-attribute 'default :background) 10))
 
-  (let ((bg (face-attribute 'default :background)))
-    (custom-set-faces
-     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-     `(company-scrollnbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+  ;; (set-face-background hl-line-face (color-lighten-name
+  ;; 				     (face-attribute 'default :background) 10))
+
+  ;; (let ((bg (face-attribute 'default :background)))
+  ;;   (custom-set-faces
+  ;;    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+  ;;    `(company-scrollnbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+  ;;    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+  ;;    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+  ;;    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+  
   (toggle-frame-fullscreen))
 
 
@@ -142,110 +158,6 @@
 
 (global-set-key (kbd "C-c C-f") 'chc-lsp-ui-doc-toggle-frame)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; make-backup-file-name will store my
-;;;; files in dated directories
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun make-backup-file-name (FILE)
-  "Create a name full relative directory for the backup of give argument FILE."
-  (let ((dirname (concat "backup/emacs/"
-			 (format-time-string "%Y_%b_%d/"))))
-    (if (not (file-exists-p dirname))
-	(make-directory dirname t))
-    (concat dirname
-	    (concat (file-name-nondirectory (concat "~" FILE))
-		    (format-time-string "@%I-%M-%S%-p")))))
-
-(setq make-backup-files nil)
-
-(defun make-backup-current-file ()
-  "Interactive command to backup the current file.  Make a backup file for the current buffer."
-(interactive)
-(let ((filename (buffer-file-name))
-      backupname)
-  (if (not filename) (error "Current Buffer is not File!!")
-    (progn
-      (setq backupname (make-backup-file-name (concat "~" filename)))
-      (while (file-exists-p backupname)
-	(setq backupname (make-backup-file-name (concat "~" filename))))
-      (copy-file filename
-		 (concat (file-name-directory filename) backupname))))))
-
-
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Rename file and current buffer
-;;;; Credit - my-dot-emacs
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun rename-file-and-buffer (new-name)
-  "Rename both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-  (let ((name (buffer-name))
-	(filename (buffer-file-name)))
-    (if (not filename)
-	(message "Buffer '%s' is not visiting a file!" name)
-      (if(get-buffer new-name)
-	  (message "A buffer named '%s' already exists!" new-name)
-	(progn (rename-file filename new-name 1)
-	       (rename-buffer new-name)
-	       (set-visited-file-name new-name)
-	       (set-buffer-modified-p nil))))))
-;; Never understood why Emacs doesn't have this function, either.
-;; END OF CUSTOM THINGS
-
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; C C++
-;;;; autoinsert C/C++ header
-;;;; Credit - Casey
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (auto-insert-mode)
-;; (define-auto-insert
-;;   (cons "\\.\\([Hh]\\|hh\\|hpp\\)\\'" "My C / C++ Header")
-;;   '(nil
-;;     "// " (file-name-nondirectory buffer-file-name) "\n"
-;;     "//\n"
-;;     "// Last-Edit-By: <> \n"
-;;     "//\n"
-;;     "// Description:\n"
-;;     "//\n"
-;;     (make-string 70 ?/) "\n\n"
-;;     (let* ((noext (substring buffer-file-name 0 (match-beginning 0)))
-;; 	   (nopath (file-name-nondirectory noext))
-;; 	   (ident (concat (upcase nopath) "_H")))
-;;       (concat "#ifndef " ident "\n"
-;; 	      "#define " ident  " 1\n\n\n"
-;; 	      "\n\n#endif // " ident "\n"))
-;;     (make-string 70 ?/) "\n"
-;;     "// $Log:$\n"
-;;     "//\n"
-;;     ))
-
-
-;; (define-auto-insert
-;;   (cons "\\.\\([Cc]\\|cc\\|cpp\\)\\'" "My C++ implementation")
-;;   '(nil
-;;     "/* \n\n   " (file-name-nondirectory buffer-file-name)
-;;     "\n\n"
-;;     "   Author: Saroj Rai @ CharichaSoftwares \n"
-;;     "   Created On: " (format-time-string "%A, %e %B %Y.")
-;;     "\n\n"
-;;     "*/\n\n"
-;;     (let* ((noext (substring buffer-file-name 0 (match-beginning 0)))
-;; 	   (nopath (file-name-nondirectory noext))
-;; 	   (ident (concat nopath ".h")))
-;;       (if (file-exists-p ident)
-;; 	  (concat "#include \"" ident "\"\n")))
-;;     "// %Log:$ //\n"
-;;     "//\n"
-;;     ))
-    
-
 ;; Bright-red TODOs and NOTEes
 (setq fixme-modes '(c++-mode c-mode emacs-lisp-mode web-mode java-mode javascript-mode php-mode bat-mode js2-mode rjsx-mode csharp-mode))
 
@@ -307,7 +219,6 @@
 (eval-after-load 'company
   '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin))
 
-
 (use-package which-key
   :ensure t
   :config (which-key-mode))
@@ -318,7 +229,8 @@
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package emmet-mode
   :ensure t
-  :hook web-mode)
+  :hook ((web-mode . emmet-mode)
+	 (rjsx-mode . emmet-mode)))
 
 
 (use-package web-mode
@@ -351,34 +263,6 @@
   :ensure t
   :config (setq inhibit-compacting-font-caches t))
 
-;; previous side bar
-;; (use-package dired-sidebar
-;;   :ensure t
-;;   :commands (dired-sidebar-toggle-sidebar)
-;;   :bind ("C-x C-n" . dired-sidebar-toggle-sidebar)
-;;   :config (setq dired-sidebar-theme 'vscode))
-
-;; (use-package ibuffer-sidebar
-;;   :ensure t
-;;   :commands (ibuffer-sidebar-toggle-sidebar)
-;;   :bind ("C-x C-b" . ibuffer-sidebar-toggle-sidebar))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; RJSX-MODE
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package rjsx-mode
-  :ensure t
-  :mode("\\.js\\'"
-	"\\.jsx\\'")
-  :config
-  (setq js2-basic-offset 2
-	js-jsx-indent-level 2
-	js-indent-level 2))
-
-(use-package add-node-modules-path
-  :ensure t
-  :defer t
-  :hook (((js2-mode rjsx-mode) . add-node-modules-path)))
 
 ;; (use-package prettier-js
 ;;   :defer t
@@ -396,22 +280,27 @@
 (use-package lsp-mode
   :ensure t
   :bind-keymap
-  ("C-c l" . lsp-command-map)
+  (("C-c l" . lsp-command-map))
+
+  :bind
+  (("M-?" . 'lsp-find-references)
+   ("M-p" . 'lsp-ui-peek-find-definitions))
+
   :custom
   (setq lsp-keymap-prefix "C-c l")
   :hook ((csharp-mode . lsp)
 	 (rjsx-mode . lsp))
-
   (lsp-mode . lsp-enable-which-key-integration)
   :commands (lsp lsp-deferred))
 
 (setq lsp-server-install-dir "c:/lsp")
+(setq format-with-lsp nil)
 
 (use-package lsp-ui
   :ensure t
   :defer t
   :init (setq lsp-ui-doc-enable t)
-  :bind (("C-c C-u" . 'lsp-ui-doc-hide)))
+  :bind ("C-c C-u" . 'lsp-ui-doc-hide))
 
 (use-package lsp-treemacs
   :ensure t
@@ -441,14 +330,40 @@
   :ensure t)
 
 
-;; csharp mode ??
-;; (use-package csharp-mode
-;;   :ensure t
-;;   :init
-;;   (defun my/csharp-mode-hook ()
-;;     (lsp))
-;;   (add-hook 'csharp-mode-hook #'my/csharp-mode-hook)
-;;   :mode ("\\.cs\\'"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; RJSX-MODE
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package rjsx-mode
+  :ensure t
+  :mode("\\.js\\'"
+	"\\.jsx\\'"
+	"\\.ts\\'"
+	"\\.tsx\\'")
+  :hook (rjsx-mode . lsp-deferred)
+  :config
+  (setq js2-basic-offset 2
+	js-jsx-indent-level 2
+	js-indent-level 2))
+
+(use-package add-node-modules-path
+  :ensure t
+  :defer t
+  :hook (((js2-mode rjsx-mode) . add-node-modules-path)))
+
+(setq lsp-eslint-server-command 
+      '("node"
+	"C:/Users/raisa/.vscode/extensions/dbaeumer.vscode-eslint-2.2.2/server/out/eslintServer.js"	
+	"--stdio"))
+
+
+(use-package typescript-mode
+  :ensure t
+  :after lsp-mode
+  :mode ("\.ts$")
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 4))
 
 
 
@@ -460,7 +375,7 @@
 	 ("C-x b" . helm-mini)
 	 ("C-c C-l" . helm-lsp-code-actions)))
 
-(bind-key* (kbd "C-c C-l") 'helm-lsp-code-actions)
+;; (bind-key* (kbd "C-c C-l") 'helm-lsp-code-actions)
 
 (use-package helm-xref
   :ensure t)
@@ -478,18 +393,6 @@
 ;; ;; don't know how the directories are written
 (with-eval-after-load 'lsp-mode
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.Temp\\'"))
-;; (with-eval-after-load 'lsp-mode
-;;   (add-to-list 'lsp-file-watch-ignored-directories "d:/Asthav/SudokuMobile/Temp"))
-;; (with-eval-after-load 'lsp-mode
-;;   (add-to-list 'lsp-file-watch-ignored-directories "z:/BottleFlipper/Temp"))
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Live HTML editing
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package impatient-mode
-;;   :ensure t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -533,15 +436,21 @@
 ;;   :init (setq lsp-python-ms-auto-install-server t)
 ;;   :hook (python-mode . (lambda ()
 ;;                           (require 'lsp-python-ms)
-;;                           (lsp-deffered))))  ; or lsp-deferred
+;;                           (lsp-deferred))))  ; or lsp-deferred
 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ReactJS
+;; TailwindCSS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package! lsp-tailwindcss
-;;   :ensure t)
+(use-package lsp-tailwindcss
+  :ensure t
+  :init
+  (setq lsp-tailwindcss-experimental-class-regex ["tw`([^`]*)" "tw=\"([^\"]*)" "tw={\"([^\"}]*)" "tw\\.\\w+`([^`]*)" "tw\\(.*?\\)`([^`]*)"])
+  (setq lsp-tailwindcss-add-on-mode t))
+
+
+	 
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -555,3 +464,38 @@
 ;;   :config (add-hook 'java-mode-hook 'lsp))
 
 ;; (setq lsp-java-jdt-download-url  "https://download.eclipse.org/jdtls/milestones/0.57.0/jdt-language-server-0.57.0-202006172108.tar.gz")
+
+
+
+
+
+;; (use-package copilot
+;;   :straight (:host github :repo "zerolfx/copilot.el"
+;;                    :files ("dist" "copilot.el"))
+;;   :ensure t)
+
+; complete by copilot first, then company-mode
+;; (defun my-tab ()
+;;   (interactive)
+;;   (or (copilot-accept-completion)
+;;       (company-indent-or-complete-common nil)))
+
+; modify company-mode behaviors
+;; (with-eval-after-load 'company
+;;   ; disable inline previews
+;;   (delq 'company-preview-if-just-one-frontend company-frontends)
+;;   ; enable tab completion
+;;   (define-key company-mode-map (kbd "<tab>") 'my-tab)
+;;   (define-key company-mode-map (kbd "TAB") 'my-tab)
+;;   (define-key company-active-map (kbd "<tab>") 'my-tab)
+;;   (define-key company-active-map (kbd "TAB") 'my-tab))
+
+;; (use-package copilot
+;;   :straight (:host github :repo "zerolfx/copilot.el"
+;; 		   :files ("dist" "copilot.el"))
+;;   :ensure t
+;;   :hook (prog-mode . copilot-mode))
+
+
+;; Apheleia Formatter
+(straight-use-package 'apheleia)
